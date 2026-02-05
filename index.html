@@ -26,32 +26,34 @@
         </div>
 
         <nav class="sidebar__nav">
-          <button class="sidebar__nav-item sidebar__nav-item--active">
-            <span class="sidebar__nav-icon"></span>
+          <button class="sidebar__nav-item sidebar__nav-item--active" data-page="dashboard">
+            <span class="sidebar__nav-icon">🏠</span>
             <span>Dashboard</span>
           </button>
-          <button class="sidebar__nav-item" disabled>
-            <span class="sidebar__nav-icon"></span>
+          <button class="sidebar__nav-item" data-page="history">
+            <span class="sidebar__nav-icon">📜</span>
             <span>History</span>
           </button>
-          <button class="sidebar__nav-item" disabled>
-            <span class="sidebar__nav-icon"></span>
+          <button class="sidebar__nav-item" data-page="subnetting">
+            <span class="sidebar__nav-icon">📐</span>
             <span>Subnetting</span>
           </button>
         </nav>
 
         <div class="sidebar__section">
           <div class="sidebar__section-title">Recent History</div>
-          <div class="sidebar__history-empty">
-            No records yet – validate an IP to see it here.
+          <div id="sidebar-history" class="sidebar__history-list">
+            <div class="sidebar__history-empty">
+              No records yet – validate an IP to see it here.
+            </div>
           </div>
         </div>
 
         <div class="sidebar__footer">
-          <button class="btn btn--secondary btn--full" disabled>
+          <button class="btn btn--secondary btn--full" id="export-btn">
             Export Session
           </button>
-          <button class="btn btn--ghost btn--full">
+          <button class="btn btn--ghost btn--full" id="logout-btn">
             ⏏ Logout
           </button>
         </div>
@@ -61,22 +63,24 @@
       <main class="main">
         <header class="main__header">
           <div>
-            <h1 class="page-title">IP Address Validator</h1>
-            <p class="page-subtitle">
-              Network analysis tool for IPv4 (UI only – backend not connected).
+            <h1 class="page-title" id="page-title">IP Address Validator</h1>
+            <p class="page-subtitle" id="page-subtitle">
+              Network analysis tool for IPv4.
             </p>
           </div>
           <div class="user-menu">
             <button class="icon-btn" aria-label="Notifications">
               <span class="icon-dot"></span>
             </button>
-            <button class="user-pill">
+            <button class="user-pill" id="user-menu-btn" data-page="admin">
               <div class="user-pill__avatar">A</div>
               <span class="user-pill__name">Admin User</span>
             </button>
           </div>
         </header>
 
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page-content">
         <!-- Analyzer Card -->
         <section class="card analyzer-card">
           <h2 class="card__title">Analyze IPv4 Address</h2>
@@ -222,6 +226,79 @@
             </div>
           </article>
         </section>
+        </div>
+
+        <!-- History Page -->
+        <div id="page-history" class="page-content" style="display: none;">
+          <section class="card">
+            <h2 class="card__title">Validation History</h2>
+            <p class="card__subtitle">All IP addresses you've validated in this session.</p>
+            <div id="history-list" class="history-list">
+              <div class="history-empty">Loading history...</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Subnetting Page -->
+        <div id="page-subnetting" class="page-content" style="display: none;">
+          <section class="card analyzer-card">
+            <h2 class="card__title">Subnet Calculator</h2>
+            <p class="card__subtitle">
+              Enter a network address and number of subnets needed to calculate subnet details.
+            </p>
+            <form id="subnet-form" class="analyzer-form" autocomplete="off" novalidate>
+              <div class="input-with-icon">
+                <span class="input-with-icon__icon">🌐</span>
+                <input
+                  id="subnet-network-input"
+                  type="text"
+                  placeholder="e.g. 192.168.1.0/24"
+                  class="input"
+                />
+              </div>
+              <div class="input-with-icon">
+                <span class="input-with-icon__icon">#</span>
+                <input
+                  id="subnets-needed-input"
+                  type="number"
+                  placeholder="Number of subnets"
+                  class="input"
+                  min="1"
+                  value="4"
+                />
+              </div>
+              <button type="submit" class="btn btn--primary">
+                Calculate Subnets
+              </button>
+            </form>
+          </section>
+          <section id="subnet-results" class="card" style="display: none;">
+            <h3 class="card__title">Subnet Results</h3>
+            <div id="subnet-results-content"></div>
+          </section>
+        </div>
+
+        <!-- Admin User Page -->
+        <div id="page-admin" class="page-content" style="display: none;">
+          <section class="card">
+            <h2 class="card__title">Admin User Profile</h2>
+            <p class="card__subtitle">Manage your account and session information.</p>
+            <div class="admin-info">
+              <div class="info-row">
+                <span class="info-label">Username:</span>
+                <span class="info-value" id="admin-username">Admin User</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Session Started:</span>
+                <span class="info-value" id="admin-session-time">—</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Total Validations:</span>
+                <span class="info-value" id="admin-total-validations">—</span>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
 

@@ -669,3 +669,149 @@ input {
   }
 }
 
+/* ========== Page Content & Routing ========== */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ========== History Page ========== */
+.history-list {
+  margin-top: 16px;
+}
+
+.history-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.history-item {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+
+.history-item:hover {
+  border-color: var(--accent);
+}
+
+.history-item__left {
+  flex: 1;
+}
+
+.history-item__ip {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.history-item__details {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.history-item__time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ========== Subnetting Results ========== */
+.subnet-grid {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.subnet-item {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+}
+
+.subnet-item__header {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.subnet-item__details {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.subnet-item__details strong {
+  color: var(--text-primary);
+}
+
+/* ========== Admin Page ========== */
+.admin-info {
+  margin-top: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.info-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ========== Sidebar History ========== */
+.sidebar__history-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.sidebar__history-item {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.sidebar__history-item:hover {
+  border-color: var(--accent);
+}
+
+.sidebar__history-item__ip {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sidebar__history-item__class {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
