@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IP Address Validator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <div class="sidebar__logo">IP</div>
+          <div>
+            <div class="sidebar__title">IP Pro</div>
+            <div class="sidebar__subtitle">Network Toolkit</div>
+          </div>
+        </div>
+
+        <nav class="sidebar__nav">
+          <button class="sidebar__nav-item sidebar__nav-item--active">
+            <span class="sidebar__nav-icon"></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="sidebar__nav-item" disabled>
+            <span class="sidebar__nav-icon"></span>
+            <span>History</span>
+          </button>
+          <button class="sidebar__nav-item" disabled>
+            <span class="sidebar__nav-icon"></span>
+            <span>Subnetting</span>
+          </button>
+        </nav>
+
+        <div class="sidebar__section">
+          <div class="sidebar__section-title">Recent History</div>
+          <div class="sidebar__history-empty">
+            No records yet – validate an IP to see it here.
+          </div>
+        </div>
+
+        <div class="sidebar__footer">
+          <button class="btn btn--secondary btn--full" disabled>
+            Export Session
+          </button>
+          <button class="btn btn--ghost btn--full">
+            ⏏ Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main">
+        <header class="main__header">
+          <div>
+            <h1 class="page-title">IP Address Validator</h1>
+            <p class="page-subtitle">
+              Network analysis tool for IPv4 (UI only – backend not connected).
+            </p>
+          </div>
+          <div class="user-menu">
+            <button class="icon-btn" aria-label="Notifications">
+              <span class="icon-dot"></span>
+            </button>
+            <button class="user-pill">
+              <div class="user-pill__avatar">A</div>
+              <span class="user-pill__name">Admin User</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Analyzer Card -->
+        <section class="card analyzer-card">
+          <h2 class="card__title">Analyze IPv4 Address</h2>
+          <p class="card__subtitle">
+            Enter an IPv4 address and subnet prefix to validate it and view
+            calculated network details.
+          </p>
+
+          <form id="ip-form" class="analyzer-form" autocomplete="off" novalidate>
+            <div class="input-with-icon">
+              <span class="input-with-icon__icon">IP</span>
+              <input
+                id="ip-input"
+                type="text"
+                placeholder="e.g. 192.168.1.45"
+                class="input"
+              />
+            </div>
+            <div class="prefix-group">
+              <label for="prefix-select" class="prefix-label">Prefix</label>
+              <select id="prefix-select" class="input prefix-select">
+                <option value="24">/24</option>
+                <option value="8">/8</option>
+                <option value="16">/16</option>
+                <option value="30">/30</option>
+                <option value="32">/32</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn--primary">
+              Validate
+            </button>
+          </form>
+
+          <p class="helper-text">
+            The backend validates the IPv4 address and computes class, network
+            ID, broadcast address, and usable host range.
+          </p>
+        </section>
+
+        <!-- Summary Cards (placeholder values, no backend logic) -->
+        <section class="grid grid--summary">
+          <article class="card summary-card">
+            <div class="card__label">IP Class</div>
+            <div class="card__value" id="ip-class-value">—</div>
+            <div class="card__hint" id="ip-class-hint">Based on first octet.</div>
+          </article>
+
+          <article class="card summary-card">
+            <div class="card__label">Network Type</div>
+            <div class="card__value" id="network-type-value">—</div>
+            <div class="card__hint" id="network-type-hint">
+              Private, public, loopback or special use.
+            </div>
+          </article>
+
+          <article class="card summary-card">
+            <div class="card__label">Network ID</div>
+            <div class="card__value" id="network-id-value">—</div>
+            <div class="card__hint" id="network-id-hint">
+              Network address for the selected prefix.
+            </div>
+          </article>
+
+          <article class="card summary-card">
+            <div class="card__label">Broadcast</div>
+            <div class="card__value" id="broadcast-value">—</div>
+            <div class="card__hint" id="broadcast-hint">
+              Last address in the network.
+            </div>
+          </article>
+        </section>
+
+        <section class="grid grid--details">
+          <!-- Binary Representation -->
+          <article class="card">
+            <header class="card__header-row">
+              <h3 class="card__title">Binary Representation</h3>
+              <span class="badge badge--muted">From backend</span>
+            </header>
+            <p class="card__subtitle">
+              Each octet is shown in 8‑bit binary form.
+            </p>
+
+            <div class="binary-grid">
+              <div class="binary-col">
+                <div class="binary-label">Octet 1</div>
+                <div class="binary-value" id="octet-1">••••••••</div>
+              </div>
+              <div class="binary-col">
+                <div class="binary-label">Octet 2</div>
+                <div class="binary-value" id="octet-2">••••••••</div>
+              </div>
+              <div class="binary-col">
+                <div class="binary-label">Octet 3</div>
+                <div class="binary-value" id="octet-3">••••••••</div>
+              </div>
+              <div class="binary-col">
+                <div class="binary-label">Octet 4</div>
+                <div class="binary-value" id="octet-4">••••••••</div>
+              </div>
+            </div>
+
+            <div class="binary-footer">
+              <div>
+                <div class="meta-label">Subnet Mask</div>
+                  <div class="meta-value" id="subnet-mask-value">—</div>
+              </div>
+              <div>
+                <div class="meta-label">Wildcard Mask</div>
+                  <div class="meta-value" id="wildcard-mask-value">—</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Host Range -->
+          <article class="card">
+            <header class="card__header-row">
+              <h3 class="card__title">Host Range</h3>
+              <span class="badge badge--muted">Calculated</span>
+            </header>
+            <p class="card__subtitle">
+              Usable host range and total hosts for the selected prefix.
+            </p>
+
+            <div class="range-placeholder">
+              <div class="range-row">
+                <span class="range-label">Usable Range</span>
+                <span class="range-value" id="usable-range-value">—</span>
+              </div>
+              <div class="range-bar">
+                <div class="range-bar__fill"></div>
+              </div>
+              <div class="range-stats">
+                <div>
+                  <div class="meta-label">Total Hosts</div>
+                  <div class="meta-value" id="total-hosts-value">—</div>
+                </div>
+                <div>
+                  <div class="meta-label">Usable</div>
+                  <div class="meta-value" id="usable-hosts-value">—</div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <!-- Toast Backdrop -->
+    <div id="toast-backdrop"></div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
